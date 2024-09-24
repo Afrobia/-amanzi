@@ -22,9 +22,69 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Descrição
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Sistema
+Este projeto consiste em uma API para calcular a higestão hídrica das pessoas, com influência das condições climáticas, com clientes, suas contas, além de toda a gerenciamento geoclimático.
+
+### Cliente:
+
+- Id
+- username
+- email
+- telefone
+
+Obs: Um cliente só pode ter uma conta.
+Validação via API do Gmail
+Autenticação
+
+### Ingestão Hidrica:
+
+Segue os requisitos de negócio:
+
+- Cliente
+- Peso
+- Localização
+- Ingestão hídrica
+- Status
+
+
+OBs: Conta só pode ter um cliente
+- Calcular ingestão hídrica
+- Analise do Status
+- Registro no histórico
+
+Contantes:
+RDA: 35ml/kg
+OMS: 4,5 L
+
+### Infra Geolocalização:
+
+- Localização
+- Clima 
+- Umidade do Ar
+- Status 
+
+Obs: API de integração Meteorológica
+-Gerar status de alerta ou verde caso clima e umidade
+- obter clima
+- obter umidade do ar
+
+Parametros Climáticas
+
+
+
+## APIs consumidas
+- API meteorológica
+- API Gmail
+
+## Tecnologias
+Este projeto foi construído com as seguintes tecnologias:
+
+- NestJs
+- TypeScript
+- Jest / Supertest
+- TypeORM
 
 ## Project setup
 
