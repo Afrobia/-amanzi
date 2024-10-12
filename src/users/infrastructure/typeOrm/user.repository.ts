@@ -24,7 +24,7 @@ export class UserRepository implements UserRepositoryInterface {
     return await this.userMapper.toModel(newEntity)
   }
 
-  async getAll(): Promise<User[]> {
+  async getAllUsers(): Promise<User[]> {
     const entities = await this.userRepository.find();
     return Promise.all(entities.map((item) => this.userMapper.toModel(item)));
   }
@@ -39,6 +39,8 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async deleteUser(email: string) {
-    return
+    const entities = await this.userRepository.find();
+    const userFound = entities.find((item) => item.email === email);
+    await this.userRepository.delete(userFound)
   }  
 }

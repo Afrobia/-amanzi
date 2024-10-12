@@ -6,7 +6,8 @@ import {
   HttpStatus,
   Inject,
   Get,
-  Param
+  Param,
+  Delete
 } from '@nestjs/common';
 import { USERS_SERVICE_TOKEN, UsersService } from '../application/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -35,4 +36,10 @@ export class UsersController {
     return await this.usersService.findUserByEmail(email)
   }
 
+  @Delete(':email')
+  async deleteUser(@Param('email') email: string){
+   await this.usersService.deleteUser(email)
+   
+   return "Usuário removido"
+  }
 }

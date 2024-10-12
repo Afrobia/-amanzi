@@ -1,69 +1,77 @@
-import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateUserDto } from '../http/dto/update-user.dto';
+import {
+  ForbiddenException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UserServiceInterface } from '../domain/user-service.interface';
-import { USER_REPO_TOKEN, UserRepositoryInterface } from './ports/user-repository';
+import {
+  USER_REPO_TOKEN,
+  UserRepositoryInterface,
+} from './ports/user-repository';
 import { CreateUserDto } from '../http/dto/create-user.dto';
 import { User } from '../domain/user';
 
-
 @Injectable()
-export class UsersService implements UserServiceInterface{
+export class UsersService implements UserServiceInterface {
   constructor(
     @Inject(USER_REPO_TOKEN)
-    private readonly userRepository:UserRepositoryInterface){}
-  
-  async createOrFind(createUser: CreateUserDto) {
-    this.validateAge(createUser)
-    const user = await this.findOne(createUser.email)
+    private readonly userRepository: UserRepositoryInterface,
+  ) {}
 
-    if(user){
-       throw new Error('Usuário já cadastrado')
+  async createOrFind(createUser: CreateUserDto) {
+    this.validateAge(createUser);
+    const user = await this.findOne(createUser.email);
+
+    if (user) {
+      throw new ForbiddenException('Cadastro inválido, usuário já cadastrado');
     }
-    return await this.create(createUser)
+    return await this.create(createUser);
   }
 
   async create(createUser: CreateUserDto): Promise<User> {
-    const newUser = new User()
-    newUser.setName(createUser.name)
-    newUser.setEmail(createUser.email)
-    newUser.setPassword(createUser.password)
-    return this.userRepository.registerUser(newUser)
+    const newUser = new User();
+    newUser.setName(createUser.name);
+    newUser.setEmail(createUser.email);
+    newUser.setPassword(createUser.password);
+    return this.userRepository.registerUser(newUser);
   }
 
-  private validateAge(user: CreateUserDto){
+  private validateAge(user: CreateUserDto) {
     const yearNow = new Date().getFullYear();
-    const age = yearNow - user.yearOfBirth
-    const MINIMUM_AGE = 16
+    const age = yearNow - user.yearOfBirth;
+    const MINIMUM_AGE = 16;
 
-    if(age <= MINIMUM_AGE){
-      throw new ForbiddenException("Cadastro invalido, idade mínima não atingida")
+    if (age <= MINIMUM_AGE) {
+      throw new ForbiddenException(
+        'Cadastro invalido, idade mínima não atingida',
+      );
     }
   }
 
-  async list():Promise<User[]>{
-    return ;
-  }
-
-  async findAllUsers():Promise<User[]>{
-    return this.userRepository.getAll()
+  async findAllUsers(): Promise<User[]> {
+    return this.userRepository.getAllUsers();
   }
 
   async findOne(email: string): Promise<User | null> {
-    const userFound = await this.userRepository.findEmail(email)
-    if(!userFound){
-      return null
+    const userFound = await this.userRepository.findEmail(email);
+    if (!userFound) {
+      return null;
     }
-    return userFound
+    return userFound;
   }
 
-  async findUserByEmail(email:string): Promise<User>{
-    const user = await this.userRepository.findEmail(email)
-    if(!user){
-      throw new NotFoundException("Email não cadastrado")
+  async findUserByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findEmail(email);
+    if (!user) {
+      throw new NotFoundException('Email não cadastrado');
     }
-    return user
+    return user;
   }
 
+  async deleteUser(email:string){
+    await this.userRepository.deleteUser(email)
+  }
 }
 
-export const USERS_SERVICE_TOKEN = Symbol()
+export const USERS_SERVICE_TOKEN = Symbol();

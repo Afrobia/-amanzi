@@ -13,7 +13,7 @@ export class UsersServiceMock implements UserServiceInterface {
     this.users.push(user);
     return Promise.resolve(user);
   }
-  list(): Promise<User[]> {
+  findAllUsers(): Promise<User[]> {
     throw new Error('Method not implemented.');
   }
 }
