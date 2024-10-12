@@ -13,7 +13,7 @@ content-type: application/json
   "password": "1584bI..",
   "yearOfBirth": 2015
 }
-### Encontrando todos os usuarios
+### Encontrando todos os usuários
 GET http://localhost:3000/users
 
 
