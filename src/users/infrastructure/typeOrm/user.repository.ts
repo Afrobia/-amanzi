@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { UserRepositoryInterface } from '../../application/ports/user-repository';
 import { UserEntity } from './user.entity';
 import { User } from '../../domain/user';
-import * as bcrypt from 'bcrypt';
 import { UserMapper } from './user.mapper';
 
 
@@ -25,21 +24,17 @@ export class UserRepository implements UserRepositoryInterface {
     return await this.userMapper.toModel(newEntity)
   }
 
-
-  async comparePassword(password: string, hash: string): Promise<boolean> {
-    return bcrypt.compare(password, hash);
-  }
-
   async getAll(): Promise<User[]> {
-    /* const entities = Array.from(this.users.values());
-    return Promise.all(entities.map((item) => this.userMapper.forDomain(item)) */;
-  return
+    const entities = await this.userRepository.find();
+    return Promise.all(entities.map((item) => this.userMapper.toModel(item)));
   }
 
-  async findEmail(email: string): Promise<User| null> {
-    const entities = Array.from(this.users.values());
+  async findEmail(email: string): Promise< User| null> {
+    const entities = await this.userRepository.find();
     const userFound = entities.find((item) => item.email === email);
-    if (!userFound) return null;
+    if (!userFound){
+      return null
+    }
     return this.userMapper.toModel(userFound);
   }
 

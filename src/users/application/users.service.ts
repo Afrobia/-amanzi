@@ -1,11 +1,12 @@
-import { ForbiddenException, Inject } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateUserDto } from '../http/dto/update-user.dto';
-import { UserServiceInterface } from './ports/user-service.interface';
+import { UserServiceInterface } from '../domain/user-service.interface';
 import { USER_REPO_TOKEN, UserRepositoryInterface } from './ports/user-repository';
 import { CreateUserDto } from '../http/dto/create-user.dto';
 import { User } from '../domain/user';
 
 
+@Injectable()
 export class UsersService implements UserServiceInterface{
   constructor(
     @Inject(USER_REPO_TOKEN)
@@ -43,29 +44,26 @@ export class UsersService implements UserServiceInterface{
     return ;
   }
 
-  findOne(email: string): Promise<User | null> {
-    const userFound = this.userRepository.findEmail(email)
+  async findAllUsers():Promise<User[]>{
+    return this.userRepository.getAll()
+  }
+
+  async findOne(email: string): Promise<User | null> {
+    const userFound = await this.userRepository.findEmail(email)
     if(!userFound){
       return null
     }
     return userFound
   }
 
-  findUserByEmail(email:string): Promise<User>{
-    const user = this.findOne(email)
+  async findUserByEmail(email:string): Promise<User>{
+    const user = await this.userRepository.findEmail(email)
     if(!user){
-      throw new ForbiddenException("Email não cadastrado")
+      throw new NotFoundException("Email não cadastrado")
     }
     return user
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
 }
 
 export const USERS_SERVICE_TOKEN = Symbol()

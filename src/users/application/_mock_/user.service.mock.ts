@@ -1,6 +1,7 @@
-import { UserServiceInterface } from '../ports/user-service.interface';
+
 import { CreateUserDto } from '../../../users/http/dto/create-user.dto';
 import { User } from '../../../users/domain/user';
+import { UserServiceInterface } from 'src/users/domain/user-service.interface';
 
 
 // in-memory

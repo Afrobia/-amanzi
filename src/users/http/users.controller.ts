@@ -25,9 +25,14 @@ export class UsersController {
     return this.usersService.createOrFind(createUserDto)
   }
   
+  @Get()
+  async findAllUser():Promise<User[]>{
+    return await this.usersService.findAllUsers()
+  }
+
   @Get(':email')
   async findUserByEmail(@Param('email') email: string):Promise<User>{
-    return this.usersService.findUserByEmail(email)
+    return await this.usersService.findUserByEmail(email)
   }
 
 }

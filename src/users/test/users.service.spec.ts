@@ -1,6 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from '../src/users/application/users.service';
-import { User } from '../src/users/domain/user';
+import { USERS_SERVICE_TOKEN, UsersService } from '../application/users.service';
+import { User } from '../domain/user';
+import { Repository } from 'typeorm';
+import { UserEntity } from '../infrastructure/typeOrm/user.entity';
+import { USER_REPO_TOKEN, UserRepositoryInterface } from '../application/ports/user-repository';
+
+
+
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -13,15 +19,15 @@ describe('UsersService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
+      imports:[],
+      providers: [UsersService,],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-    expect(service).toBeInstanceOf(UsersService)
+    expect(service).toBeDefined()
   });
 
   test('Deve instânciar um usuario',() => {
@@ -40,7 +46,7 @@ describe('UsersService', () => {
     }
   })
 
-  test.failing("Não deve criar um email se for encontrado", () => {
+  test("Não deve criar um email se for encontrado", () => {
     const userCreated = service.create(userTest)
 
     if(userCreated instanceof User) {

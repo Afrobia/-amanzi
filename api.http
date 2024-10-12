@@ -11,8 +11,13 @@ content-type: application/json
   "name":"Castro Silva",
   "email": "cs@gmail.com",
   "password": "1584bI..",
-  "yearOfBirth": 2004
+  "yearOfBirth": 2015
 }
+### Encontrando todos os usuarios
+GET http://localhost:3000/users
 
+
+### Encontrando um usuário
+GET http://localhost:3000/users/cs@gmail.com
 
 
