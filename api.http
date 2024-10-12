@@ -1,0 +1,26 @@
+### hello {reprograma}
+
+GET http://localhost:3000
+
+### Criando usuário
+
+POST http://localhost:3000/users
+content-type: application/json
+
+{
+  "name":"Laura Barbosa",
+  "email": "laura@gmail.com",
+  "password": "15985lS!",
+  "yearOfBirth": 1997 
+}
+
+### Encontrando todos os usuários
+GET http://localhost:3000/users
+
+
+### Encontrando um usuário
+GET http://localhost:3000/users/cs@gmail.com
+
+### Deletar usuário
+DELETE http://localhost:3000/users/cs@gmail.com
+
