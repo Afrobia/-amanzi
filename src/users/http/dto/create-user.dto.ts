@@ -24,4 +24,5 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsPositive()
   yearOfBirth: number;
+
 }

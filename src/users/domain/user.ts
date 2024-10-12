@@ -1,19 +1,26 @@
+import { Expose } from "class-transformer";
 import { randomUUID } from "crypto";
 
 export class User {
+  @Expose()
   private id: string;
+  @Expose()
   private name: string;
+  @Expose()
   private email: string;
+  @Expose()
   private password: string;
-  private goal: Goal[]
 
   constructor(){
     this.id = randomUUID()
-    this.goal = []
   }
 
   getId():string{
     return this.id
+  }
+
+  setId(id:string) {
+    return this.id = id
   }
 
   getName():string {
@@ -37,16 +44,9 @@ export class User {
   }
   
   setPassword(password:string){
-    this.password = password
+    return this.password = password
   }
-
-
+ 
 }
 
-export class Goal {
-  private id: string;
-  private weigth: number;
-  private goal: number;
-  private date: Date;
-  private city: string;
-}
+

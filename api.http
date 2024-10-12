@@ -1,0 +1,18 @@
+### hello {reprograma}
+
+GET http://localhost:3000
+
+### Criando usuário
+
+POST http://localhost:3000/users
+content-type: application/json
+
+{
+  "name":"Castro Silva",
+  "email": "cs@gmail.com",
+  "password": "1584bI..",
+  "yearOfBirth": 2004
+}
+
+
+
