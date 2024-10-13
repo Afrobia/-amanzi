@@ -1,16 +1,14 @@
 import {
-  ForbiddenException,
-  Inject,
-  Injectable,
-  NotFoundException,
+  ForbiddenException, Inject, Injectable,NotFoundException,
 } from '@nestjs/common';
-import { UserServiceInterface } from '../domain/user-service.interface';
+import { UserServiceInterface } from '../domain/service/user-service.interface';
 import {
   USER_REPO_TOKEN,
   UserRepositoryInterface,
 } from './ports/user-repository';
 import { CreateUserDto } from '../http/dto/create-user.dto';
-import { User } from '../domain/user';
+import { User } from '../domain/model/user';
+import { UpdateUserDto } from '../http/dto/update-user.dto';
 
 @Injectable()
 export class UsersService implements UserServiceInterface {
@@ -61,6 +59,12 @@ export class UsersService implements UserServiceInterface {
     return userFound;
   }
 
+  async modifyWeight(email:string, updateUser:UpdateUserDto){
+    const user = await this.findUserByEmail(email)
+    user.setWeight(updateUser.weight)
+    return this.userRepository.modifySave(user)
+  }
+
   async findUserByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findEmail(email);
     if (!user) {
@@ -69,9 +73,7 @@ export class UsersService implements UserServiceInterface {
     return user;
   }
 
-  async deleteUser(email:string){
-    await this.userRepository.deleteUser(email)
+  async deleteUser(email: string) {
+    await this.userRepository.deleteUser(email);
   }
 }
-
-export const USERS_SERVICE_TOKEN = Symbol();

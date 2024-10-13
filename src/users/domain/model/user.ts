@@ -10,9 +10,12 @@ export class User {
   private email: string;
   @Expose()
   private password: string;
+  @Expose()
+  private weight:number;
 
   constructor(){
     this.id = randomUUID()
+    this.weight = 0
   }
 
   getId():string{
@@ -45,6 +48,14 @@ export class User {
   
   setPassword(password:string){
     return this.password = password
+  }
+
+  getWeight(){
+    return this.weight;
+  }
+
+  setWeight(weight:number){
+    return this.weight=weight;
   }
  
 }

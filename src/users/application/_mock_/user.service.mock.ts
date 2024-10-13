@@ -1,7 +1,7 @@
 
 import { CreateUserDto } from '../../../users/http/dto/create-user.dto';
-import { User } from '../../../users/domain/user';
-import { UserServiceInterface } from 'src/users/domain/user-service.interface';
+import { User } from '../../domain/model/user';
+import { UserServiceInterface } from 'src/users/domain/service/user-service.interface';
 
 
 // in-memory

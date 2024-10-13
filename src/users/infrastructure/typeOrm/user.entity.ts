@@ -1,6 +1,4 @@
 import { IsEmail, IsNotEmpty, IsString, IsUUID } from "class-validator";
-
-
 import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity('users')
@@ -21,6 +19,8 @@ export class UserEntity {
 
     @Column()
     password: string;
-
+    
+    @Column()
+    weight:number;
 
 }

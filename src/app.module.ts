@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './users/application/users.module';
 import { AppService } from './app.service';
+import { WaterIntakeModule } from './water-intake/application/water-intake.module';
 
 
 @Module({
@@ -31,7 +32,8 @@ import { AppService } from './app.service';
         return config as TypeOrmModuleAsyncOptions;
       },
     }),
-    UsersModule
+    UsersModule,
+    /* WaterIntakeModule */
   ],
   controllers: [AppController],
   providers: [AppService],
