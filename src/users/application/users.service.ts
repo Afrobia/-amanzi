@@ -59,9 +59,11 @@ export class UsersService implements UserServiceInterface {
     return userFound;
   }
 
-  async modifyWeight(email:string, updateUser:UpdateUserDto){
+  async modifyWeight(updateUser:UpdateUserDto){
+    const { email, weight } = updateUser
+    
     const user = await this.findUserByEmail(email)
-    user.setWeight(updateUser.weight)
+    user.setWeight(weight)
     return this.userRepository.modifySave(user)
   }
 

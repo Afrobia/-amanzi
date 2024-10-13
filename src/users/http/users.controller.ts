@@ -37,9 +37,9 @@ export class UsersController {
     return await this.usersService.findUserByEmail(email)
   }
 
-  @Patch(':email')
-  async update(@Param('email') email: string, @Body('weight') updateUserDto: UpdateUserDto) {
-    return this.usersService.modifyWeight(email, updateUserDto);
+  @Patch(':weight')
+  async update( @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.modifyWeight(updateUserDto);
   }
 
   @Delete(':email')

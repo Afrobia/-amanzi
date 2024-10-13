@@ -43,9 +43,8 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async modifySave(user: User): Promise<User> {
-    const entity = this.findEntityByEmail(user.getEmail());
-    this.userRepository.save(await entity);
-    return await this.userMapper.toModel(await entity);
+    const entityModify = await this.userRepository.save( await this.userMapper.toEntity(await user));
+    return this.userMapper.toModel(entityModify);
   }
 
   async deleteUser(email: string) {

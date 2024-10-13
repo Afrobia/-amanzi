@@ -34,9 +34,11 @@ GET http://localhost:3000/users/cm@gmail.com
 
 
 ### Modificar o peso
-PATCH http://localhost:3000/users/cm@gmail.com
+PATCH http://localhost:3000/users/weight
+content-type: application/json
 
 {
+  "email": "cm@gmail.com",
   "weight": 60
 }
 

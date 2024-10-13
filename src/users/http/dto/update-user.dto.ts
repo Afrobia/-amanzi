@@ -1,9 +1,13 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
+    @IsEmail()
+    @IsNotEmpty()
+    email: string;
+    
     @IsNumber()
-    @IsNotEmpty({message: 'Digite um número'})
-    weight:number;
+    @IsNotEmpty()
+    weight: number;
 }
