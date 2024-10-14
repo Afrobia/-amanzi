@@ -12,10 +12,13 @@ export class User {
   private password: string;
   @Expose()
   private weight:number;
+  @Expose()
+  private waterIntake:number;
 
   constructor(){
     this.id = randomUUID()
     this.weight = 0
+    this.waterIntake = this.calculateWaterIntake(this.weight)
   }
 
   getId():string{
@@ -56,6 +59,18 @@ export class User {
 
   setWeight(weight:number){
     return this.weight=weight;
+  }
+
+  getWaterIntake(){
+    return this.waterIntake;
+  }
+
+  setWaterIntake(waterIntake:number){
+    return this.waterIntake = waterIntake;
+  }
+  
+  calculateWaterIntake(weight:number){
+    return this.waterIntake = Number(((35 * weight)/1000).toFixed(2))
   }
  
 }

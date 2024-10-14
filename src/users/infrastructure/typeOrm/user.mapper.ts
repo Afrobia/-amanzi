@@ -11,6 +11,7 @@ export class UserMapper {
       model.setEmail(entity.email)
       model.setPassword(entity.password)
       model.setWeight(entity.weight)
+      model.setWaterIntake(entity.waterIntake)
     return model
   }
 
@@ -21,6 +22,7 @@ export class UserMapper {
     entity.email = model.getEmail();
     entity.password = model.getPassword()
     entity.weight = model.getWeight()
+    entity.waterIntake =model.getWaterIntake()
     return entity;
   }
 }

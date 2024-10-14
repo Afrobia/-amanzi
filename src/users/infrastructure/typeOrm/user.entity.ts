@@ -20,7 +20,10 @@ export class UserEntity {
     @Column()
     password: string;
     
-    @Column()
-    weight:number;
+    @Column( {type: 'decimal', precision: 10, scale: 2, nullable: true })
+    weight:number | null;
+
+    @Column( {type: 'decimal', precision: 10, scale: 2, nullable: true })
+    waterIntake:number| null;
 
 }

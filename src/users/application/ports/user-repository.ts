@@ -1,6 +1,5 @@
 import { User } from "../../domain/model/user";
 
-
 export abstract class UserRepositoryInterface {
   abstract registerUser(user: User): Promise<User>;
   abstract getAllUsers(): Promise<User[]>;

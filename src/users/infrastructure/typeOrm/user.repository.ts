@@ -17,11 +17,12 @@ export class UserRepository implements UserRepositoryInterface {
   ) {}
 
   async registerUser(userData: User): Promise<User> {
-    const persistenceModel = await this.userMapper.toEntity(userData);
+    const persistenceModel = this.userMapper.toEntity(userData);
     this.users.set(persistenceModel.id, persistenceModel);
     const newEntity = this.users.get(persistenceModel.id);
     this.userRepository.save(newEntity);
-    return await this.userMapper.toModel(newEntity);
+
+    return this.userMapper.toModel(newEntity);
   }
 
   async getAllUsers(): Promise<User[]> {
@@ -39,11 +40,14 @@ export class UserRepository implements UserRepositoryInterface {
 
   async findEmail(email: string): Promise<User | null> {
     const entity = await this.findEntityByEmail(email)
+      if(!entity){
+        return null
+      }
     return this.userMapper.toModel(entity);
   }
 
   async modifySave(user: User): Promise<User> {
-    const entityModify = await this.userRepository.save( await this.userMapper.toEntity(await user));
+    const entityModify = await this.userRepository.save( this.userMapper.toEntity( user));
     return this.userMapper.toModel(entityModify);
   }
 

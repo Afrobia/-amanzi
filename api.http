@@ -28,7 +28,6 @@ content-type: application/json
 ### Encontrando todos os usuários
 GET http://localhost:3000/users
 
-
 ### Encontrando um usuário
 GET http://localhost:3000/users/cm@gmail.com
 
@@ -38,8 +37,8 @@ PATCH http://localhost:3000/users/weight
 content-type: application/json
 
 {
-  "email": "cm@gmail.com",
-  "weight": 60
+  "email": "laura@gmail.com",
+  "weight": 55
 }
 
 ### Deletar usuário

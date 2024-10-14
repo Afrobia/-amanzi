@@ -19,12 +19,12 @@ export class UsersService implements UserServiceInterface {
 
   async createOrFind(createUser: CreateUserDto) {
     this.validateAge(createUser);
-    const user = await this.findOne(createUser.email);
-
+    const user = await this.userRepository.findEmail(createUser.email);
     if (user) {
       throw new ForbiddenException('Cadastro inválido, usuário já cadastrado');
-    }
-    return await this.create(createUser);
+    } 
+
+    return await this.create(createUser)
   }
 
   async create(createUser: CreateUserDto): Promise<User> {
@@ -51,19 +51,12 @@ export class UsersService implements UserServiceInterface {
     return this.userRepository.getAllUsers();
   }
 
-  async findOne(email: string): Promise<User | null> {
-    const userFound = await this.userRepository.findEmail(email);
-    if (!userFound) {
-      return null;
-    }
-    return userFound;
-  }
-
   async modifyWeight(updateUser:UpdateUserDto){
     const { email, weight } = updateUser
     
     const user = await this.findUserByEmail(email)
     user.setWeight(weight)
+    user.calculateWaterIntake(weight)
     return this.userRepository.modifySave(user)
   }
 

@@ -4,7 +4,6 @@ import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { UsersModule } from './users/application/users.module';
 import { AppService } from './app.service';
-import { WaterIntakeModule } from './water-intake/application/water-intake.module';
 
 
 @Module({
@@ -33,7 +32,6 @@ import { WaterIntakeModule } from './water-intake/application/water-intake.modul
       },
     }),
     UsersModule,
-    /* WaterIntakeModule */
   ],
   controllers: [AppController],
   providers: [AppService],
