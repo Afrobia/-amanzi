@@ -1,16 +1,14 @@
 import {
-  ForbiddenException,
-  Inject,
-  Injectable,
-  NotFoundException,
+  ForbiddenException, Inject, Injectable,NotFoundException,
 } from '@nestjs/common';
-import { UserServiceInterface } from '../domain/user-service.interface';
+import { UserServiceInterface } from '../domain/service/user-service.interface';
 import {
   USER_REPO_TOKEN,
   UserRepositoryInterface,
 } from './ports/user-repository';
 import { CreateUserDto } from '../http/dto/create-user.dto';
-import { User } from '../domain/user';
+import { User } from '../domain/model/user';
+import { UpdateUserDto } from '../http/dto/update-user.dto';
 
 @Injectable()
 export class UsersService implements UserServiceInterface {
@@ -21,12 +19,12 @@ export class UsersService implements UserServiceInterface {
 
   async createOrFind(createUser: CreateUserDto) {
     this.validateAge(createUser);
-    const user = await this.findOne(createUser.email);
-
+    const user = await this.userRepository.findEmail(createUser.email);
     if (user) {
       throw new ForbiddenException('Cadastro inválido, usuário já cadastrado');
-    }
-    return await this.create(createUser);
+    } 
+
+    return await this.create(createUser)
   }
 
   async create(createUser: CreateUserDto): Promise<User> {
@@ -53,12 +51,13 @@ export class UsersService implements UserServiceInterface {
     return this.userRepository.getAllUsers();
   }
 
-  async findOne(email: string): Promise<User | null> {
-    const userFound = await this.userRepository.findEmail(email);
-    if (!userFound) {
-      return null;
-    }
-    return userFound;
+  async modifyWeight(updateUser:UpdateUserDto){
+    const { email, weight } = updateUser
+    
+    const user = await this.findUserByEmail(email)
+    user.setWeight(weight)
+    user.calculateWaterIntake(weight)
+    return this.userRepository.modifySave(user)
   }
 
   async findUserByEmail(email: string): Promise<User> {
@@ -69,9 +68,7 @@ export class UsersService implements UserServiceInterface {
     return user;
   }
 
-  async deleteUser(email:string){
-    await this.userRepository.deleteUser(email)
+  async deleteUser(email: string) {
+    await this.userRepository.deleteUser(email);
   }
 }
-
-export const USERS_SERVICE_TOKEN = Symbol();

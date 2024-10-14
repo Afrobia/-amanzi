@@ -1,5 +1,5 @@
-import { CreateUserDto } from "../http/dto/create-user.dto";
-import { User } from "./user";
+import { CreateUserDto } from "../../http/dto/create-user.dto";
+import { User } from "../../domain/model/user";
 
 
 export abstract class UserServiceInterface {

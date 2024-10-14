@@ -7,17 +7,18 @@ import {
   Inject,
   Get,
   Param,
-  Delete
+  Delete,
+  Patch
 } from '@nestjs/common';
-import { USERS_SERVICE_TOKEN, UsersService } from '../application/users.service';
+import { UsersService } from '../application/users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { User } from '../domain/user';
+import { User } from '../domain/model/user';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject(USERS_SERVICE_TOKEN)
     private readonly usersService: UsersService) {}
 
   @Post()
@@ -34,6 +35,11 @@ export class UsersController {
   @Get(':email')
   async findUserByEmail(@Param('email') email: string):Promise<User>{
     return await this.usersService.findUserByEmail(email)
+  }
+
+  @Patch(':weight')
+  async update( @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.modifyWeight(updateUserDto);
   }
 
   @Delete(':email')

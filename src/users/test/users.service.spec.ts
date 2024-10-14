@@ -1,12 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { USERS_SERVICE_TOKEN, UsersService } from '../application/users.service';
-import { User } from '../domain/user';
-import { Repository } from 'typeorm';
-import { UserEntity } from '../infrastructure/typeOrm/user.entity';
-import { USER_REPO_TOKEN, UserRepositoryInterface } from '../application/ports/user-repository';
-
-
-
+import { UsersService } from '../application/users.service';
+import { User } from '../domain/model/user';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -20,7 +14,7 @@ describe('UsersService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports:[],
-      providers: [UsersService,],
+      providers: [UsersService],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
