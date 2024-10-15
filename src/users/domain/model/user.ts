@@ -14,6 +14,7 @@ export class User {
   private weight:number;
   @Expose()
   private waterIntake:number;
+    location: any;
 
   constructor(){
     this.id = randomUUID()
@@ -72,7 +73,7 @@ export class User {
   calculateWaterIntake(weight:number){
     return this.waterIntake = Number(((35 * weight)/1000).toFixed(2))
   }
- 
+  
 }
 
 

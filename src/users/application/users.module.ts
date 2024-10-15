@@ -1,11 +1,11 @@
 import { Module} from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UsersRepositoryModule } from '../infrastructure/typeOrm/user-repository.persistence.module';
 import { UsersController } from '../http/users.controller';
+import { RepositoryModule } from '../../db/repository.persistence.module';
 
 
 @Module({
-  imports:[UsersRepositoryModule],
+  imports:[RepositoryModule],
   controllers: [ UsersController],
   providers: [UsersService],
 })

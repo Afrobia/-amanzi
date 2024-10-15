@@ -37,9 +37,10 @@ PATCH http://localhost:3000/users/weight
 content-type: application/json
 
 {
-  "email": "laura@gmail.com",
-  "weight": 55
+  "email": "cm@gmail.com",
+  "weight": 75
 }
+
 
 ### Deletar usuário
 DELETE http://localhost:3000/users/cm@gmail.com

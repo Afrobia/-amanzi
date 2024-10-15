@@ -38,7 +38,7 @@ export class UsersController {
   }
 
   @Patch(':weight')
-  async update( @Body() updateUserDto: UpdateUserDto) {
+  async updateWeight( @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.modifyWeight(updateUserDto);
   }
 
