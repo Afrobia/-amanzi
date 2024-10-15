@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { GeoclimateService } from './geoclimate.service';
+import { CLIMA_SERVICE_TOKEN, GeoclimateService } from './geoclimate.service';
 import { LOCATION_REPO_TOKEN, LocationRepositoryInterface } from './location-repository.interface';
 import { Location } from '../domain/location';
 
@@ -8,7 +8,8 @@ export class LocationService {
   constructor(
     @Inject(LOCATION_REPO_TOKEN)
     private readonly locationRepository: LocationRepositoryInterface,
-    private climateService: GeoclimateService,
+    @Inject(CLIMA_SERVICE_TOKEN)
+    private readonly climateService: GeoclimateService,
   ) {}
 
   async createLocation(city: string, state: string) {

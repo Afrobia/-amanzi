@@ -21,4 +21,5 @@ import { USER_REPO_TOKEN } from "../users/application/ports/user-repository";
   }, UserMapper, LocationMapper],
   exports: [USER_REPO_TOKEN, LOCATION_REPO_TOKEN],
 })
+
 export class RepositoryModule {}

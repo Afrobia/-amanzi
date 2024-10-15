@@ -2,7 +2,7 @@ import { IsUUID } from "class-validator";
 import { UserEntity } from "../../../users/infrastructure/typeOrm/user.entity";
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('location')
 export class LocationEntity {
     @PrimaryGeneratedColumn()
     @IsUUID()

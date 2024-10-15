@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
 import { catchError, map } from 'rxjs';
 
-@Injectable()
+
 export class GeoclimateService {
   constructor(
     private httpService: HttpService,
@@ -29,3 +29,5 @@ export class GeoclimateService {
   }
 
 }
+
+export const CLIMA_SERVICE_TOKEN = Symbol();
