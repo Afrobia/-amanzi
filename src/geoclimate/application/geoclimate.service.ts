@@ -1,33 +1,37 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
-import { catchError, map } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
+
 
 
 export class GeoclimateService {
   constructor(
+    @Inject(HttpService)
     private httpService: HttpService,
+    @Inject(ConfigService)
     private configService: ConfigService,
   ) {}
 
-  async getClimate(city: string, state: string) {
-    const apiKey = this.configService.get('OPENWEATHERMAP_API_KEY');
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},br&appid=${apiKey}&units=metric`;
+  
+  async getClimate(city: string, state: string): Promise<{ averageTemperature: number; relativeHumidity: number }> {
+    const apiKey = this.configService.getOrThrow<string>('OPENWEATHERMAP_API_KEY');
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},BR&appid=${apiKey}&units=metric`;
 
-    return this.httpService.get(url)
-      .pipe(
-        map((response: AxiosResponse) => {
-          const { temp, humidity } = response.data.main;
-          return { averageTemperature: temp, relativeHumidity: humidity };
-        }),
-        catchError(() => {
-          throw new HttpException('Erro ao obter dados do clima', HttpStatus.BAD_REQUEST);
-        }),
-      )
-      .toPromise();
+    try {
+      const response: AxiosResponse = await firstValueFrom(this.httpService.get(url));
+      const data = response.data;
+      return {
+        averageTemperature: data.main.temp,
+        relativeHumidity: data.main.humidity,
+      };
+    } catch (error) {
+      console.error('Erro ao buscar dados climáticos:', error);
+      return null;
+    }
   }
-
 }
+
 
 export const CLIMA_SERVICE_TOKEN = Symbol();
