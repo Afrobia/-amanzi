@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { LocationEntity } from "./entities/geoclimate.entity";
+import { LocationEntity } from "../entities/geoclimate.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { LocationMapper } from "./location.mapper";
-import { Location } from "../domain/location";
+import { Location } from "../../domain/location";
+import { LocationMapper } from "../mapper/location.mapper";
 
 
 @Injectable()

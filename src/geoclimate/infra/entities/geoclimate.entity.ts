@@ -4,7 +4,7 @@ import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('location')
 export class LocationEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn("uuid")
     @IsUUID()
     id: string;
   

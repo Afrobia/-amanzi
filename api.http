@@ -52,7 +52,7 @@ POST  http://localhost:3000/localizacoes
 content-type: application/json
 
 {
-  "city": "Recife",
-  "state": "PE"
+  "city": "Campina Grande",
+  "state": "PB"
 }
 

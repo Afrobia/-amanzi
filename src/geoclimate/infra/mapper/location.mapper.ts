@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { LocationEntity } from "./entities/geoclimate.entity";
-import { Location } from "../domain/location";
+import { LocationEntity } from "../entities/geoclimate.entity";
+import { Location } from "../../../geoclimate/domain/location";
+
 
 
 @Injectable()

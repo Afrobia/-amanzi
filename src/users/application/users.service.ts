@@ -2,10 +2,7 @@ import {
   ForbiddenException, Inject, Injectable,NotFoundException,
 } from '@nestjs/common';
 import { UserServiceInterface } from '../domain/service/user-service.interface';
-import {
-  USER_REPO_TOKEN,
-  UserRepositoryInterface,
-} from './ports/user-repository';
+import { USER_REPO_TOKEN, UserRepositoryInterface} from './ports/user-repository';
 import { CreateUserDto } from '../http/dto/create-user.dto';
 import { User } from '../domain/model/user';
 import { UpdateUserDto } from '../http/dto/update-user.dto';

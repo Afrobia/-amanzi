@@ -1,4 +1,4 @@
-import { Location } from "../domain/location";
+import { Location } from "../../domain/location";
 
 export abstract class LocationRepositoryInterface{
 
