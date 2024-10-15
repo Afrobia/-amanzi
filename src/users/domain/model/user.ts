@@ -19,7 +19,7 @@ export class User {
   constructor(){
     this.id = randomUUID()
     this.weight = 0
-    this.waterIntake = this.calculateWaterIntake(this.weight)
+    this.waterIntake = 0
   }
 
   getId():string{
@@ -68,10 +68,6 @@ export class User {
 
   setWaterIntake(waterIntake:number){
     return this.waterIntake = waterIntake;
-  }
-  
-  calculateWaterIntake(weight:number){
-    return this.waterIntake = Number(((35 * weight)/1000).toFixed(2))
   }
   
 }

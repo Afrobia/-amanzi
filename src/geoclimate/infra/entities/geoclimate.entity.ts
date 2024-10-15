@@ -13,12 +13,6 @@ export class LocationEntity {
   
     @Column()
     state: string;
-  
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable:true })
-    averageTemperature: number| null;
-  
-    @Column({ type: 'decimal', precision: 10, scale: 2, nullable:true })
-    relativeHumidity: number | null;
 
     @OneToOne(() => UserEntity, user => user.location, { onDelete: 'CASCADE' })
     user: UserEntity;

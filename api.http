@@ -32,15 +32,6 @@ GET http://localhost:3000/users
 GET http://localhost:3000/users/cm@gmail.com
 
 
-### Modificar o peso
-PATCH http://localhost:3000/users/weight
-content-type: application/json
-
-{
-  "email": "cm@gmail.com",
-  "weight": 75
-}
-
 
 ### Deletar usuário
 DELETE http://localhost:3000/users/cm@gmail.com
@@ -56,3 +47,10 @@ content-type: application/json
   "state": "PB"
 }
 
+### Modificar o apenas o peso do usuário
+PATCH http://localhost:3000/water-calculator/laura@gmail.com
+content-type: application/json
+
+{
+  "weight": 50
+}

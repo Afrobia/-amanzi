@@ -27,29 +27,20 @@
 ### Sistema
 Este projeto consiste em uma API para calcular a higestão hídrica das pessoas, com influência das condições climáticas, com clientes, suas contas, além de toda a gerenciamento geoclimático.
 
-### Cliente:
+### Usuário:
 
 - Id
-- username
+- name
 - email
-- telefone
+- password
+- weight
+- location
 
-Obs: Um cliente só pode ter uma conta.
-Validação via API do Gmail
-Autenticação
 
-### Ingestão Hidrica:
+### Calculadora Ingestão Hidrica:
 
 Segue os requisitos de negócio:
 
-- Cliente
-- Peso
-- Localização
-- Ingestão hídrica
-- Status
-
-
-OBs: Conta só pode ter um cliente
 - Calcular ingestão hídrica
 - Analise do Status
 - Registro no histórico
@@ -58,25 +49,30 @@ Contantes:
 RDA: 35ml/kg
 OMS: 4,5 L
 
-### Infra Geolocalização:
+### Geolclima:
 
-- Localização
+- Cidade
+- Estado
 - Clima 
 - Umidade do Ar
 - Status 
 
-Obs: API de integração Meteorológica
--Gerar status de alerta ou verde caso clima e umidade
+Obs: API de integração Meteorológica (Open Weather)
+
 - obter clima
 - obter umidade do ar
 
-Parametros Climáticas
+#### Parametros Climáticas
 
+- Umidade do ar
+baixo < 39,9%
+ 40% < normal < 70%
+- Temperatura 
+18ºC < normal > 25ºC
 
 
 ## APIs consumidas
-- API meteorológica
-- API Gmail
+- API OpenWeather
 
 ## Tecnologias
 Este projeto foi construído com as seguintes tecnologias:
