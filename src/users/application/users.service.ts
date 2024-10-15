@@ -5,7 +5,6 @@ import { UserServiceInterface } from '../domain/service/user-service.interface';
 import { USER_REPO_TOKEN, UserRepositoryInterface} from './ports/user-repository';
 import { CreateUserDto } from '../http/dto/create-user.dto';
 import { User } from '../domain/model/user';
-import { UpdateUserDto } from '../http/dto/update-user.dto';
 
 @Injectable()
 export class UsersService implements UserServiceInterface {
@@ -48,21 +47,21 @@ export class UsersService implements UserServiceInterface {
     return this.userRepository.getAllUsers();
   }
 
-  async modifyWeight(updateUser:UpdateUserDto){
-    const { email, weight } = updateUser
-    
-    const user = await this.findUserByEmail(email)
-    user.setWeight(weight)
-    user.calculateWaterIntake(weight)
-    return this.userRepository.modifySave(user)
-  }
-
   async findUserByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findEmail(email);
     if (!user) {
       throw new NotFoundException('Email não cadastrado');
     }
     return user;
+  }
+
+  async modifyWeight(email:string,weight: number, waterIntake:number):Promise<User>{
+    
+    const user = await this.findUserByEmail(email)
+    user.setWeight(weight)
+    user.setWaterIntake(waterIntake)
+    this.userRepository.modifySave(user)
+    return user
   }
 
   async deleteUser(email: string) {

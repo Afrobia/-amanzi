@@ -25,5 +25,9 @@ export class LocationRepository implements LocationRepository {
     return this.locationMapper.toModel(newEntity);
   }
 
+  async list(): Promise<Location[]> {
+    const entities = Array.from(this.locations.values());
+    return Promise.all(entities.map((item) => this.locationMapper.toModel(item)));
+  }
  
 }

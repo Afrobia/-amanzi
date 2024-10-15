@@ -19,39 +19,21 @@ export class LocationService {
     newlocation.state = state
     newlocation.averageTemperature = climate.averageTemperature
     newlocation.relativeHumidity = climate.relativeHumidity
-    console.log(this.locationRepository.registerlocation(newlocation))
-    return this.locationRepository.registerlocation(newlocation);
+    this.locationRepository.registerlocation(newlocation);
+    return newlocation
   }
 
-  statusTemperature(temperature:number){
-    let status: boolean
-    if(temperature >= 18 || temperature <= 29.9){
-        return status = false
-    } else if(temperature >= 30){
-        return true
-    }
+  async getClima(city:string,state:string){
+    const geoclimate = new Location()
+    const climate = await this.climateService.getClimate(city, state);
+    geoclimate.city = city
+    geoclimate.state = state
+    geoclimate.averageTemperature = climate.averageTemperature
+    geoclimate.relativeHumidity = climate.relativeHumidity
+    
   }
 
-  statusHumidity(humidity:number):boolean{
-
-    if(humidity >= 40 || humidity <= 70){
-        return false
-    } else if(humidity <= 39.9){
-        return true
-    }
+  async listLocationRequest():Promise<Location[]>{
+    return this.locationRepository.list()
   }
-
-  statusClima(temperature: number, humidity:number){
-    const sHumidity = this.statusHumidity(humidity);
-    const sTempeture =this.statusTemperature(temperature)
-    if(sHumidity == true && sTempeture ==true){
-      return true
-    }else if(sHumidity == true && sTempeture == false ){
-      return true
-    }else if(sHumidity == false && sTempeture == true ){
-      return true
-    }
-    return false
-  }
-
 }
