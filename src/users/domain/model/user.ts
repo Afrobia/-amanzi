@@ -13,7 +13,7 @@ export class User {
   @Expose()
   private weight: number;
   @Expose()
-  private waterIntake: number;
+  private waterIntake:number;
   @Expose()
   private city: string;
   @Expose()
@@ -76,19 +76,19 @@ export class User {
   }
 
   getCity():string {
-    return this.city;
+    return this.city
   }
   
   setCity(city:string){
-    return this.city = city;
+    return this.city = city
   }
 
   getState():string {
-    return this.state;
+    return this.state
   }
   
   setState(state:string){
-    return this.state = state;
+    return this.state = state
   }
   
 }

@@ -31,10 +31,11 @@ export class UsersService implements UserServiceInterface {
   }
 
   async create(createUser: CreateUserDto): Promise<User> {
+    const hashedPassword = await bcrypt.hash(createUser.password, 10);
     const newUser = new User();
     newUser.setName(createUser.name);
     newUser.setEmail(createUser.email);
-    newUser.setPassword(createUser.password);
+    newUser.setPassword(hashedPassword);
     return this.userRepository.registerUser(newUser);
   }
 
@@ -51,9 +52,8 @@ export class UsersService implements UserServiceInterface {
   }
 
   /* async hashPassword(password: string): Promise<string> {
-    const saltRounds = 10;
-    const hash = await bcrypt.hash(password, saltRounds);
-    return hash;
+    const hashPass = await bcrypt.hash(password, 10);
+    return hashPass;
   } */
 
   async findAllUsers(): Promise<User[]> {
