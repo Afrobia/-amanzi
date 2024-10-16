@@ -24,9 +24,9 @@ export class UserMapper {
     entity.email = model.getEmail();
     entity.password = model.getPassword()
     entity.weight = model.getWeight()
-    entity.waterIntake =model.getWaterIntake()
-    entity.city =model.getCity()
-    entity.state =model.getState()
+    entity.waterIntake = model.getWaterIntake()
+    entity.city = model.getCity()
+    entity.state = model.getState()
     return entity;
   }
 }
