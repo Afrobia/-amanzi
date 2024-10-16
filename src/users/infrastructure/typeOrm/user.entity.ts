@@ -27,15 +27,15 @@ export class UserEntity {
     @Column( {type: 'decimal', precision: 10, scale: 2, nullable: true })
     waterIntake:number| null;
 
-    @Column()
+    @Column({ nullable: true })
     @IsString()
     @IsNotEmpty()
-    city: string;
+    city: string| null;
 
-    @Column()
+    @Column({ nullable: true })
     @IsString()
     @IsNotEmpty()
-    state: string;
+    state: string| null;
 
 }
 

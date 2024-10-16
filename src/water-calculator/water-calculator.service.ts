@@ -12,14 +12,14 @@ export class WaterCalculatorService {
     private readonly climateService: GeoclimateService,
   ) {}
   
-  async calculateWater(weight: number) {
+  async calculateWaterIntake(weight: number) {
     const intake = Number(((35 * weight) / 1000).toFixed(2));
     return intake;
   }
 
   async modifyWeight(email: string, update: UpdateCalculatorDto): Promise<User> {
     const { weight } = update;
-    const waterIntake = await this.calculateWater(weight);
+    const waterIntake = await this.calculateWaterIntake(weight);
     const updateUser = this.userService.modifyWeight(
       email,
       weight,
@@ -28,43 +28,55 @@ export class WaterCalculatorService {
     return updateUser;
   }
   
-  async getClima(city:string,state:string) {
+  async getClima(city:string,state:string): Promise<{ averageTemperature: number; relativeHumidity: number }> {
     const climate = await this.climateService.getClimate(city, state);
        
     return {
-      averageTemperaturae:climate.averageTemperature,
+      averageTemperature:climate.averageTemperature,
       relativeHumidity:climate.relativeHumidity
     }
   }
 
-  statusTemperature(temperature: number): boolean {
+  statusTemperature(temperature: number): StatusCodes {
     if (temperature >= 18 || temperature <= 29.9) {
-      return false;
+      return StatusCodes.Safe;
     } else if (temperature >= 30) {
-      return true;
+      return StatusCodes.Unsafe;
     }
   }
 
-  statusHumidity(humidity: number): boolean {
+  statusHumidity(humidity: number): StatusCodes {
     if (humidity >= 40 || humidity <= 70) {
-      return false;
+      return StatusCodes.Safe;
     } else if (humidity <= 39.9) {
-      return true;
+      return StatusCodes.Unsafe;
     }
   }
 
-  statusClima(temperature: number, humidity: number): boolean {
+  isClimateUnsafe(temperature: number, humidity: number): boolean {
     const sHumidity = this.statusHumidity(humidity);
     const sTempeture = this.statusTemperature(temperature);
-    if (sHumidity == true && sTempeture == true) {
+    if (sHumidity == StatusCodes.Unsafe || sTempeture == StatusCodes.Unsafe) {
       return true;
-    } else if (sHumidity == true && sTempeture == false) {
-      return true;
-    } else if (sHumidity == false && sTempeture == true) {
-      return true;
-    }
-    return false;
+    } else return false;
   }
   
-  
+  async getWaterIntake(weight: number, city: string, state: string): Promise<string> {
+    const clima = await this.getClima(city, state)
+
+    if (this.isClimateUnsafe(
+      clima.averageTemperature,
+      clima.relativeHumidity
+    ) == true) {
+      return "Você deve tomar pelo menos 4 litros de agua hoje, dado as condições climaticas de onde mora."
+    } else {
+      const intake = this.calculateWaterIntake(weight)
+      return "Você deve tomar pelo menos " + intake + " litros."
+    }
+  }
 }
+
+enum StatusCodes {
+    Safe,
+    Unsafe
+};
