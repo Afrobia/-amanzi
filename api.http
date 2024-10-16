@@ -19,8 +19,8 @@ POST http://localhost:3000/users
 content-type: application/json
 
 {
-  "name":"Carlos Maia",
-  "email": "cm@gmail.com",
+  "name":"Carla Luiza",
+  "email": "cl@gmail.com",
   "password": "15896lS!",
   "yearOfBirth": 2004 
 }
@@ -28,15 +28,13 @@ content-type: application/json
 ### Encontrando todos os usuários
 GET http://localhost:3000/users
 
+
 ### Encontrando um usuário
 GET http://localhost:3000/users/cm@gmail.com
 
 
-
 ### Deletar usuário
-DELETE http://localhost:3000/users/cm@gmail.com
-
-
+DELETE http://localhost:3000/users/cl@gmail.com
 
 ### fazer uma nova requisição 
 POST  http://localhost:3000/localizacoes
@@ -48,7 +46,7 @@ content-type: application/json
 }
 
 ### Modificar o apenas o peso do usuário
-PATCH http://localhost:3000/water-calculator/laura@gmail.com
+PATCH http://localhost:3000/water-calculator/hgd@gmail.com
 content-type: application/json
 
 {

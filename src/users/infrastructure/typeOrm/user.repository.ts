@@ -5,6 +5,7 @@ import { UserRepositoryInterface } from '../../application/ports/user-repository
 import { UserEntity } from './user.entity';
 import { User } from '../../domain/model/user';
 import { UserMapper } from './user.mapper';
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
@@ -24,6 +25,7 @@ export class UserRepository implements UserRepositoryInterface {
 
     return this.userMapper.toModel(newEntity);
   }
+
 
   async getAllUsers(): Promise<User[]> {
     const entities = await this.userRepository.find();
