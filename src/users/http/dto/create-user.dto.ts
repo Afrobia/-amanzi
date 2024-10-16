@@ -25,4 +25,12 @@ export class CreateUserDto {
   @IsPositive()
   yearOfBirth: number;
 
+  @IsString()
+  @IsNotEmpty()
+  city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  state: string;
+
 }

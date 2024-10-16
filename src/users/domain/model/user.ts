@@ -11,10 +11,13 @@ export class User {
   @Expose()
   private password: string;
   @Expose()
-  private weight:number;
+  private weight: number;
   @Expose()
-  private waterIntake:number;
-    location: any;
+  private waterIntake: number;
+  @Expose()
+  private city: string;
+  @Expose()
+  private state: string;
 
   constructor(){
     this.id = randomUUID()
@@ -68,6 +71,22 @@ export class User {
 
   setWaterIntake(waterIntake:number){
     return this.waterIntake = waterIntake;
+  }
+
+  getCity():string {
+    return this.city;
+  }
+  
+  setCity(city:string){
+    return this.city = city;
+  }
+
+  getState():string {
+    return this.state;
+  }
+  
+  setState(state:string){
+    return this.state = state;
   }
   
 }
