@@ -29,5 +29,4 @@ export class CreateUserDto {
   @IsPositive()
   @ApiProperty()
   yearOfBirth: number;
-
 }

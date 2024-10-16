@@ -1,6 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString, IsUUID } from "class-validator";
-import { LocationEntity } from "src/geoclimate/infra/entities/geoclimate.entity";
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import { IsEmail, IsNotEmpty, IsString, IsUUID } from "class-validator";;
+import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 
 @Entity('users')
@@ -28,7 +27,10 @@ export class UserEntity {
     @Column( {type: 'decimal', precision: 10, scale: 2, nullable: true })
     waterIntake:number| null;
 
-    @OneToOne(() => LocationEntity, location => location.user)
-    location: LocationEntity;
+    @Column({nullable: true })
+    city:string | null
+
+    @Column({nullable: true })
+    state:string |null
 }
 
