@@ -14,6 +14,4 @@ export class LocationEntity {
     @Column()
     state: string;
 
-    @OneToOne(() => UserEntity, user => user.location, { onDelete: 'CASCADE' })
-    user: UserEntity;
 }
