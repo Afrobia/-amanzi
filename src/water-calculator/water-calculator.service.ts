@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/application/users.service';
 import { User } from '../users/domain/model/user';
 import { UpdateCalculatorDto } from './dto/update-water-calculator.dto';
-import { CLIMA_SERVICE_TOKEN, GeoclimateService } from 'src/geoclimate/application/geoclimate.service';
+import { CLIMA_SERVICE_TOKEN, GeoclimateService } from '../geoclimate/application/geoclimate.service';
 
 @Injectable()
 export class WaterCalculatorService {

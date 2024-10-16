@@ -50,11 +50,11 @@ export class UsersService implements UserServiceInterface {
     }
   }
 
-  async hashPassword(password: string): Promise<string> {
+  /* async hashPassword(password: string): Promise<string> {
     const saltRounds = 10;
     const hash = await bcrypt.hash(password, saltRounds);
     return hash;
-  }
+  } */
 
   async findAllUsers(): Promise<User[]> {
     return this.userRepository.getAllUsers();
