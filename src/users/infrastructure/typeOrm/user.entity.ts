@@ -1,6 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString, IsUUID } from "class-validator";
-import { LocationEntity } from "src/geoclimate/infra/entities/geoclimate.entity";
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import { IsEmail, IsNotEmpty, IsString, IsUUID } from "class-validator";;
+import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 
 @Entity('users')

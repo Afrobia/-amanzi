@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv';
 import { UserEntity } from '../users/infrastructure/typeOrm/user.entity';
-import { LocationEntity } from '../geoclimate/infra/entities/geoclimate.entity';
+
 
 config();
 
@@ -12,7 +12,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [UserEntity,LocationEntity],
+  entities: [UserEntity],
   synchronize: false,
   migrations: [__dirname + '/migrations/*.ts'],
   migrationsRun: true,
