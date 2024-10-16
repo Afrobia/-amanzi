@@ -50,11 +50,11 @@ export class UsersService implements UserServiceInterface {
     }
   }
 
-  /* async hashPassword(password: string): Promise<string> {
+  async hashPassword(password: string): Promise<string> {
     const saltRounds = 10;
     const hash = await bcrypt.hash(password, saltRounds);
     return hash;
-  } */
+  }
 
   async findAllUsers(): Promise<User[]> {
     return this.userRepository.getAllUsers();
@@ -80,7 +80,7 @@ export class UsersService implements UserServiceInterface {
     return user;
   }
 
-  async modifyLocation(email: string, city: string, state: string): Promise<User> {
+  async modifyCityAndState(email: string, city: string, state: string): Promise<User> {
     const user = await this.findUserByEmail(email);
     user.setCity(city);
     user.setState(state);

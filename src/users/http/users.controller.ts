@@ -47,7 +47,7 @@ export class UsersController {
   @Patch(':location')
   @ApiOperation({summary: "Atualiza a localização do usuário"})
   updateLocation(@Param('email') email: string, @Body() updateUser: UpdateLocationDto) {
-    return this.usersService.modifyLocation(email, updateUser.city,updateUser.state );
+    return this.usersService.modifyCityAndState(email, updateUser.city,updateUser.state );
   };
 
   @Delete(':email')
