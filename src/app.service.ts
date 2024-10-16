@@ -3,6 +3,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello, {reprograma}!';
+    return 'Bem-vinda a calculadora de ingestão de água!';
   }
 }
