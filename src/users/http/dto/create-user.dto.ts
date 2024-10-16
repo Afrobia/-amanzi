@@ -32,10 +32,12 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   city: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   state: string;
 
 }
