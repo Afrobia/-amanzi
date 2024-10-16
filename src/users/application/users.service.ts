@@ -5,6 +5,7 @@ import { UserServiceInterface } from '../domain/service/user-service.interface';
 import { USER_REPO_TOKEN, UserRepositoryInterface} from './ports/user-repository';
 import { CreateUserDto } from '../http/dto/create-user.dto';
 import { User } from '../domain/model/user';
+import bcrypt from "bcrypt"
 
 @Injectable()
 export class UsersService implements UserServiceInterface {
@@ -13,7 +14,7 @@ export class UsersService implements UserServiceInterface {
     private readonly userRepository: UserRepositoryInterface,
   ) {}
 
-  async createOrFind(createUser: CreateUserDto) {
+  async createOrFind(createUser: CreateUserDto):Promise<User> {
     this.validateAge(createUser);
     const user = await this.userRepository.findEmail(createUser.email);
     if (user) {
@@ -24,10 +25,11 @@ export class UsersService implements UserServiceInterface {
   }
 
   async create(createUser: CreateUserDto): Promise<User> {
+    const hash = await this.hashPassword(createUser.password)
     const newUser = new User();
     newUser.setName(createUser.name);
     newUser.setEmail(createUser.email);
-    newUser.setPassword(createUser.password);
+    newUser.setPassword(hash);
     return this.userRepository.registerUser(newUser);
   }
 
@@ -42,6 +44,13 @@ export class UsersService implements UserServiceInterface {
       );
     }
   }
+
+  async hashPassword(password: string): Promise<string> {
+    const saltRounds = 10;
+    const hash = await bcrypt.hash(password, saltRounds);
+    return hash;
+  }
+  
 
   async findAllUsers(): Promise<User[]> {
     return this.userRepository.getAllUsers();
