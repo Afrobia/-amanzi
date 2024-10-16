@@ -88,6 +88,16 @@ export class UsersService implements UserServiceInterface {
     return user;
   }
 
+  async modifyCityState(email:string,city: string, state: string):Promise<User>{
+    
+    const user = await this.findUserByEmail(email)
+    user.setCity(city)
+    user.setState(state)
+    
+    this.userRepository.modifySave(user)
+    return user
+  }
+
   async deleteUser(email: string) {
     await this.userRepository.deleteUser(email);
   }

@@ -30,4 +30,12 @@ export class CreateUserDto {
   @ApiProperty()
   yearOfBirth: number;
 
+  @IsString()
+  @IsNotEmpty()
+  city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  state: string;
+
 }
