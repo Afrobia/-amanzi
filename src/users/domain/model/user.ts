@@ -13,19 +13,11 @@ export class User {
   @Expose()
   private weight: number;
   @Expose()
-<<<<<<< HEAD
   private waterIntake:number;
-  @Expose()
-  private city:string;
-  @Expose()
-  private state:string
-=======
-  private waterIntake: number;
   @Expose()
   private city: string;
   @Expose()
   private state: string;
->>>>>>> f012bb23df4452132c2df88b0bfc539a08f4216a
 
   constructor(){
     this.id = randomUUID()
@@ -84,35 +76,19 @@ export class User {
   }
 
   getCity():string {
-<<<<<<< HEAD
     return this.city
   }
   
-  setCity(city :string){
+  setCity(city:string){
     return this.city = city
   }
 
   getState():string {
-    return this.city
-  }
-  
-  setState(state :string){
-    return this.state = state
-=======
-    return this.city;
-  }
-  
-  setCity(city:string){
-    return this.city = city;
-  }
-
-  getState():string {
-    return this.state;
+    return this.state
   }
   
   setState(state:string){
-    return this.state = state;
->>>>>>> f012bb23df4452132c2df88b0bfc539a08f4216a
+    return this.state = state
   }
   
 }
