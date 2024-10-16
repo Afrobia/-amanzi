@@ -28,7 +28,15 @@ export class UserEntity {
     @Column( {type: 'decimal', precision: 10, scale: 2, nullable: true })
     waterIntake:number| null;
 
-    @OneToOne(() => LocationEntity, location => location.user)
-    location: LocationEntity;
+    @Column()
+    @IsString()
+    @IsNotEmpty()
+    city: string;
+
+    @Column()
+    @IsString()
+    @IsNotEmpty()
+    state: string;
+
 }
 

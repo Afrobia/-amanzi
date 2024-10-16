@@ -8,7 +8,9 @@ describe('UsersService', () => {
     name:"Beatriz Santana",
     email: "beatriz@gmail.com",
     password: "1584biA.",
-    yearOfBirth: 2004
+    yearOfBirth: 2004,
+    city: "cidade",
+    state: "estado"
   }
 
   beforeEach(async () => {
@@ -30,7 +32,7 @@ describe('UsersService', () => {
     expect(userCreated).toBeInstanceOf(User)
   })
 
-  test('Deve instânciar um usuario',() => {
+  test('Deve instânciar um usuario com os dados devidos',() => {
     const userCreated = service.create(userTest)
     
     if(userCreated instanceof User){
@@ -42,7 +44,7 @@ describe('UsersService', () => {
 
   test("Não deve criar um email se for encontrado", () => {
     const userCreated = service.create(userTest)
-
+    //Modificar teste para checar se quando tenta criar com mesmo email ele manda o erro devido e impede.
     if(userCreated instanceof User) {
       const userClone = service.create(userTest) 
       expect(userClone).toBeInstanceOf(User)
