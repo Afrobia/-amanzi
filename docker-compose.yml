@@ -1,14 +1,10 @@
-version: '3.8'
-
 services:
   postgres: 
-    image: postgres:latest
+    image: postgres:16
     container_name: water-intake-api-db
     ports:
-      -"5432:5432"
+      - "5432:5432"
     environment:
-      - POSTGRES_DB: water-intake-api
-      - POSTGRES_USER: 
-      - POSTGRES_PASSWORD:
-    
-   
+      POSTGRES_DB: amanzi_db
+      POSTGRES_USER: postgres.rawjzdwzqsoltfoitwdx
+      POSTGRES_PASSWORD: postgres.rawjdx=value
