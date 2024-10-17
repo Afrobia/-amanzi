@@ -27,13 +27,14 @@ export class UserEntity {
     @Column( {type: 'decimal', precision: 10, scale: 2, nullable: true })
     waterIntake:number| null;
 
-    @Column({nullable: true })
-    @IsString()
-    city: string |null;
 
     @Column({nullable: true })
     @IsString()
-    state: string| null;
+    city: string | null;
+
+    @Column({nullable: true })
+    @IsString()
+    state: string | null;
 
 }
 

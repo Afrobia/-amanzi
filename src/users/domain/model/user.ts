@@ -11,13 +11,13 @@ export class User {
   @Expose()
   private password: string;
   @Expose()
-  private weight: number;
+  weight: number;
   @Expose()
   private waterIntake:number;
   @Expose()
-  private city: string;
+  city: string;
   @Expose()
-  private state: string;
+  state: string;
 
   constructor(){
     this.id = randomUUID()

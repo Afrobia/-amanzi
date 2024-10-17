@@ -7,8 +7,6 @@ import { CLIMA_SERVICE_TOKEN, GeoclimateService } from '../geoclimate/applicatio
 import { ConfigModule } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 
-
-
 @Module({
   imports:[RepositoryModule, ConfigModule, HttpModule],
   controllers: [WaterCalculatorController],

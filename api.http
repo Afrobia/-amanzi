@@ -52,3 +52,17 @@ content-type: application/json
 {
   "weight": 50
 }
+
+### Requisição quanta agua tomar email
+get http://localhost:3010/water-calculator/hgd@gmail.com
+content-type: application/json
+
+### Requisição quanta agua tomar anonima
+get http://localhost:3010/water-calculator/intakeAnon
+content-type: application/json
+
+{
+  "weight": 50,
+  "city": "Campina Grande",
+  "state": "PB"
+}
