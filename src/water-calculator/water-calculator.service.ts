@@ -10,7 +10,7 @@ export class WaterCalculatorService {
   constructor(
     private userService: UsersService,
     @Inject(CLIMA_SERVICE_TOKEN)
-    private readonly climateService: GeoclimateService,
+    private readonly climateService: GeoclimateService
   ) { }
 
   async calculateWaterIntake(weight: number) {
@@ -39,7 +39,7 @@ export class WaterCalculatorService {
   }
 
   statusTemperature(temperature: number): StatusCodes {
-    if (temperature >= 18 || temperature <= 29.9) {
+    if (temperature >= 18 && temperature <= 29.9) {
       return StatusCodes.Safe;
     } else if (temperature >= 30) {
       return StatusCodes.Unsafe;
@@ -47,7 +47,7 @@ export class WaterCalculatorService {
   }
 
   statusHumidity(humidity: number): StatusCodes {
-    if (humidity >= 40 || humidity <= 70) {
+    if (humidity >= 40 && humidity <= 70) {
       return StatusCodes.Safe;
     } else if (humidity <= 39.9) {
       return StatusCodes.Unsafe;
