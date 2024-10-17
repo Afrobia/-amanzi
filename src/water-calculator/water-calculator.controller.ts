@@ -1,9 +1,10 @@
-import { Controller, Body, Patch, Param, Get} from '@nestjs/common';
+import { Controller, Body, Patch, Param, Get, Post} from '@nestjs/common';
 import { WaterCalculatorService } from './water-calculator.service';
 import { UsersService } from '../users/application/users.service';
 import { UpdateCalculatorDto } from './dto/update-water-calculator.dto';
 import { AnonIntakeDto } from './dto/anon-intake-dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { WaterIntake } from './water-calculator';
 
 
 @Controller('water-calculator')
@@ -14,13 +15,9 @@ export class WaterCalculatorController {
     private readonly usersService: UsersService
   ) {};
 
-  @Patch(':email')
-  updateWeight(@Param('email') email: string, @Body() updateWaterCalculatorDto: UpdateCalculatorDto) {
-    return this.waterCalculatorService.modifyWeight(email, updateWaterCalculatorDto);
-  };
-
-  @Get('intakeAnon')
-  async getAnonIntake(@Body() anonIntakeDto: AnonIntakeDto): Promise<string>{
+  @Post('intakeAnon')
+  @ApiOperation({summary: "Requisição quanta agua tomar anonima"})
+  async getAnonIntake(@Body() anonIntakeDto: AnonIntakeDto): Promise<WaterIntake>{
     return this.waterCalculatorService.getWaterIntake(
       anonIntakeDto.weight,
       anonIntakeDto.city,
@@ -28,13 +25,19 @@ export class WaterCalculatorController {
     )
   }
 
+  @Patch(':email')
+  updateWeight(@Param('email') email: string, @Body() updateWaterCalculatorDto: UpdateCalculatorDto) {
+    return this.waterCalculatorService.modifyWeight(email, updateWaterCalculatorDto);
+  };
+
   @Get(':email')
-  async getIntakeEmail(@Param('email') email: string): Promise<string> {
+  @ApiOperation({summary: "Requisição quanta agua tomar email um novo usuário"})
+  async getIntakeEmail(@Param('email') email: string): Promise<Object> {
     const user = await this.usersService.findUserByEmail(email)
-    return this.waterCalculatorService.getWaterIntake(
-      user.weight,
-      user.city,
-      user.state
+    return await this.waterCalculatorService.getWaterIntake(
+      user.getWeight(),
+      user.getCity(),
+      user.getState()
     )
   }
 
