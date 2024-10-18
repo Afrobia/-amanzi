@@ -1,8 +1,9 @@
 import { Inject } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
-import { AxiosResponse } from 'axios';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
+import { GeoclimateData } from './geoclimate.interface';
+import * as Rxjs from 'rxjs';
 
 
 
@@ -19,19 +20,20 @@ export class GeoclimateService {
     const apiKey = this.configService.getOrThrow<string>('OPENWEATHERMAP_API_KEY');
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state},BR&appid=${apiKey}&units=metric`;
 
-    try {
-      const response: AxiosResponse = await firstValueFrom(this.httpService.get(url));
-      const data = response.data;
+      const response = await this.getData(url);
       return {
-        averageTemperature: data.main.temp,
-        relativeHumidity: data.main.humidity,
-      };
-    } catch (error) {
-      console.error('Erro ao buscar dados climáticos:', error);
-      return null;
+        averageTemperature: response.averageTemperature,
+        relativeHumidity: response.relativeHumidity
+      }
+  }
+  async getData(url: string){
+    const {status, data} = await Rxjs.firstValueFrom(this.httpService.get<GeoclimateData>(url));
+    if (status !== 200) {
+      throw new Error('Erro ao buscar dados climáticos');
+    } else {
+      return data;
     }
   }
 }
-
 
 export const CLIMA_SERVICE_TOKEN = Symbol();

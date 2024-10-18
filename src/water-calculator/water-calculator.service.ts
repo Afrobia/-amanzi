@@ -1,16 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UsersService } from '../users/application/users.service';
-import { User } from '../users/domain/model/user';
-import { UpdateCalculatorDto } from './dto/update-water-calculator.dto';
 import { CLIMA_SERVICE_TOKEN, GeoclimateService } from '../geoclimate/application/geoclimate.service';
 import { WaterIntake } from './water-calculator';
+import { log } from 'console';
 
 @Injectable()
 export class WaterCalculatorService {
   constructor(
-    private userService: UsersService,
     @Inject(CLIMA_SERVICE_TOKEN)
-    private readonly climateService: GeoclimateService,
+    private readonly climateService: GeoclimateService
   ) { }
 
   async calculateWaterIntake(weight: number) {
@@ -18,28 +15,20 @@ export class WaterCalculatorService {
     return intake;
   }
 
-  async modifyWeight(email: string, update: UpdateCalculatorDto): Promise<User> {
-    const { weight } = update;
-    const waterIntake = await this.calculateWaterIntake(weight);
-    const updateUser = this.userService.modifyWeight(
-      email,
-      weight,
-      waterIntake,
-    );
-    return updateUser;
-  }
-
   async getClima(city: string, state: string): Promise<{ averageTemperature: number; relativeHumidity: number }> {
-    const climate = await this.climateService.getClimate(city, state);
-
-    return {
-      averageTemperature: climate.averageTemperature,
-      relativeHumidity: climate.relativeHumidity
-    }
+    try {
+      const climate = await this.climateService.getClimate(city, state);
+      return {
+        averageTemperature: climate.averageTemperature,
+        relativeHumidity: climate.relativeHumidity
+      }
+    } catch (error) {
+      console.log(error)
+    };
   }
 
   statusTemperature(temperature: number): StatusCodes {
-    if (temperature >= 18 || temperature <= 29.9) {
+    if (temperature >= 18 && temperature <= 29.9) {
       return StatusCodes.Safe;
     } else if (temperature >= 30) {
       return StatusCodes.Unsafe;
@@ -47,7 +36,7 @@ export class WaterCalculatorService {
   }
 
   statusHumidity(humidity: number): StatusCodes {
-    if (humidity >= 40 || humidity <= 70) {
+    if (humidity >= 40 && humidity <= 70) {
       return StatusCodes.Safe;
     } else if (humidity <= 39.9) {
       return StatusCodes.Unsafe;

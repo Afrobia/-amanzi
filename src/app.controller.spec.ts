@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello, {reprograma}!"', () => {
-      expect(appController.getHello()).toBe('Hello, {reprograma}!');
+    it('should return "Bem-vinda a calculadora de ingestão de água!"', () => {
+      expect(appController.getHello()).toBe('Bem-vinda a calculadora de ingestão de água!');
     });
   });
 });
