@@ -9,7 +9,7 @@ export class User {
   @Expose()
   private email: string;
   @Expose()
-  private password: string;
+  password: string;
   @Expose()
   weight: number;
   @Expose()
@@ -19,12 +19,22 @@ export class User {
   @Expose()
   state: string;
 
-  constructor(){
+  constructor(
+    name:string,
+    email:string,
+    password:string,
+    weight:number,
+    city:string,
+    state:string
+  ){
     this.id = randomUUID()
-    this.weight = 0
+    this.name = name
+    this.email = email
+    this.password = password
+    this.weight = weight
     this.waterIntake = 0
-    this.city = ''
-    this.state = ''
+    this.city = city
+    this.state = state
   }
 
   getId():string{
@@ -90,7 +100,4 @@ export class User {
   setState(state:string){
     return this.state = state
   }
-  
 }
-
-
