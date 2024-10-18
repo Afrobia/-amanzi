@@ -11,7 +11,6 @@ import {
 } from './ports/user-repository';
 import { CreateUserDto } from '../http/dto/create-user.dto';
 import { User } from '../domain/model/user';
-import bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService implements UserServiceInterface {
@@ -30,14 +29,25 @@ export class UsersService implements UserServiceInterface {
     return await this.create(createUser);
   }
 
-  async create(createUser: CreateUserDto): Promise<User> {
-    const hashedPassword = await bcrypt.hash(createUser.password, 10);
-    const newUser = new User();
-    newUser.setName(createUser.name);
-    newUser.setEmail(createUser.email);
-    newUser.setPassword(hashedPassword);
-    return this.userRepository.registerUser(newUser);
+  async checkPassword(receivedPassword: string, email: string): Promise<boolean> {
+    const persistedPassword = (await this.findUserByEmail(email)).password;
+    return receivedPassword == persistedPassword
   }
+
+  async create(createUser: CreateUserDto): Promise<User> {
+    if (await this.checkPassword(
+      createUser.password,
+      createUser.email
+    )){
+      const newUser = new User();
+      newUser.setName(createUser.name);
+      newUser.setEmail(createUser.email);
+      newUser.setPassword(createUser.password);
+      return this.userRepository.registerUser(newUser);
+    } else {
+      throw new ForbiddenException('Cadastro inválido, senha incorreta');
+    }
+  };
 
   private validateAge(user: CreateUserDto) {
     const yearNow = new Date().getFullYear();
@@ -50,11 +60,6 @@ export class UsersService implements UserServiceInterface {
       );
     }
   }
-
-  /* async hashPassword(password: string): Promise<string> {
-    const hashPass = await bcrypt.hash(password, 10);
-    return hashPass;
-  } */
 
   async findAllUsers(): Promise<User[]> {
     return this.userRepository.getAllUsers();
@@ -70,9 +75,12 @@ export class UsersService implements UserServiceInterface {
 
   async modifyWeight(
     email: string,
+    password: string,
     weight: number,
     waterIntake?: number,
   ): Promise<User> {
+    if (!(await this.checkPassword(password, email))) {
+      throw new ForbiddenException('Senha incorreta');}
     const user = await this.findUserByEmail(email);
     user.setWeight(weight);
     user.setWaterIntake(waterIntake);
@@ -80,7 +88,9 @@ export class UsersService implements UserServiceInterface {
     return user;
   }
 
-  async modifyCityAndState(email: string, city: string, state: string): Promise<User> {
+  async modifyCityAndState(email: string, password: string, city: string, state: string): Promise<User> {
+    if (!(await this.checkPassword(password, email))) {
+      throw new ForbiddenException('Senha incorreta');}
     const user = await this.findUserByEmail(email);
     user.setCity(city);
     user.setState(state);
@@ -88,17 +98,9 @@ export class UsersService implements UserServiceInterface {
     return user;
   }
 
-  async modifyCityState(email:string,city: string, state: string):Promise<User>{
-    
-    const user = await this.findUserByEmail(email)
-    user.setCity(city)
-    user.setState(state)
-    
-    this.userRepository.modifySave(user)
-    return user
-  }
-
-  async deleteUser(email: string) {
+  async deleteUser(email: string, password: string) {
+    if (!(await this.checkPassword(password, email))) {
+      throw new ForbiddenException('Senha incorreta');}
     await this.userRepository.deleteUser(email);
   }
 }
