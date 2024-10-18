@@ -5,15 +5,9 @@ import { UserEntity } from './user.entity';
 @Injectable()
 export class UserMapper {
   toModel(entity: UserEntity): User {
-    const model = new User()
-      model.setId(entity.id)
-      model.setName(entity.name)
-      model.setEmail(entity.email)
-      model.setPassword(entity.password)
-      model.setWeight(entity.weight)
-      model.setWaterIntake(entity.waterIntake)
-      model.setCity(entity.city)
-      model.setState(entity.state)
+    const model = new User(entity.name, entity.email, entity.password, entity.weight, entity.city, entity.state)
+    model.setId(entity.id)
+    model.setWaterIntake(entity.waterIntake)
     return model
   }
 
