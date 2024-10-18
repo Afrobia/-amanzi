@@ -1,15 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { WaterCalculatorService } from '../water-calculator.service';
-import { UsersService } from '../../users/application/users.service';
 import { CLIMA_SERVICE_TOKEN, GeoclimateService } from '../../geoclimate/application/geoclimate.service';
 import { WaterIntake } from '../water-calculator';
 
 describe('WaterCalculatorService', () => {
   let service: WaterCalculatorService;
   let climateService: GeoclimateService;
-  const mockUsersService ={
-    modifyWeight: jest.fn() //Fui fazer o teste dessa parte e fiquei pensando se essa função não deveria estar no service de usuário
-  };
   const mockGeoclimateService = {
     getClimate: jest.fn()
   };
@@ -17,7 +13,6 @@ describe('WaterCalculatorService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [WaterCalculatorService,
-      {provide: UsersService, useValue: mockUsersService},
       {provide: CLIMA_SERVICE_TOKEN, useValue: mockGeoclimateService}]
     })
     .compile();

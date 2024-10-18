@@ -8,7 +8,8 @@ import { WaterIntake } from '../water-calculator';
 describe('WaterCalculatorController', () => {
   let controller: WaterCalculatorController;
   const mockWaterCalculatorService = {
-    getWaterIntake: jest.fn() 
+    getWaterIntake: jest.fn(),
+    calculateWaterIntake: jest.fn() 
   };
   const mockUsersService = {
     findUserByEmail: jest.fn()
@@ -95,5 +96,15 @@ describe('WaterCalculatorController', () => {
 
       expect(mockWaterCalculatorService.getWaterIntake).toHaveBeenCalledWith(userData.userWeight, userData.userCity, userData.userState);
     });
+  });
+
+  it('should return the water intake calculated by the service with just weight', async () => {
+    const weight = 80;
+    const message = `Você deve ingerir ${2.80} litros de água por dia.`;
+    jest.spyOn(mockWaterCalculatorService, 'calculateWaterIntake').mockReturnValue(2.80);
+    const response = await controller.getIntake(weight);
+
+    expect(response).toEqual(message);
+    expect(mockWaterCalculatorService.calculateWaterIntake).toHaveBeenCalledWith
   });
 });

@@ -2,10 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { GeoclimateService } from '../application/geoclimate.service';
 import { HttpService } from '@nestjs/axios/dist/http.service';
 import { ConfigService } from '@nestjs/config';
-import AxiosResponse from 'axios';
-import { get } from 'http';
+import * as rxjs from 'rxjs';
+import { Inject } from '@nestjs/common';
 
 describe('GeoclimateService', () => {
+  let mockrxjs = jest.mock('rxjs');
   let service: GeoclimateService;
   let httpService: HttpService;
   let configService: ConfigService;
@@ -15,7 +16,8 @@ describe('GeoclimateService', () => {
   };
   const mockConfigService = {
     getOrThrow: jest.fn()
-  };  
+  };
+  const mockRxjs = {};  
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -34,12 +36,16 @@ describe('GeoclimateService', () => {
     expect(service).toBeDefined();
   });
 
-  /*it('should get climate data', async () => {
-    const city = 'São Paulo';
-    const state = 'SP';
-    const completeResponse = {data: {main: {temp: 25, humidity: 70}}};
+  /*it('should get climate data', async () => {     // Could not find a way to test this function
+    const city = 'São Paulo';                       // because of the TypeError: source.subscribe is not a function
+    const state = 'SP';                             // that is thrown when the function is called
+    const completeResponse = {data: {main: {averageTemperature: 25, relativeHumidity: 70}}};
 
     jest.spyOn(mockHttpService, 'get').mockResolvedValue(completeResponse);
+    jest.mock('rxjs').mockReturnValueOnce(
+      new Promise((resolve, reject) => {
+        resolve(true)
+    }));
     const response = await service.getClimate(city, state);
     expect(response).toEqual({averageTemperature: 25, relativeHumidity: 70});
 
