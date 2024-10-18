@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-import { IsString } from 'class-validator';
+import { IsString, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateLocationDto extends PartialType(CreateUserDto) {
@@ -10,6 +10,7 @@ export class UpdateLocationDto extends PartialType(CreateUserDto) {
   city: string;
   
   @IsString()
+  @MaxLength(2,{ message: 'Deve ter no máximo 2 caracteres' })
   @ApiProperty()
   state: string;
 }

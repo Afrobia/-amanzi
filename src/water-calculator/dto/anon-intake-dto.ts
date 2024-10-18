@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive, IsString, MaxLength } from 'class-validator';
 
 
 export class AnonIntakeDto {
@@ -16,6 +16,7 @@ export class AnonIntakeDto {
 
     @IsString()
     @IsNotEmpty()
+    @MaxLength(2, { message: 'Deve ter no máximo 2 caracteres' })
     @ApiProperty()
     state: string;
 }

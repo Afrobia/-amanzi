@@ -6,6 +6,7 @@ import {
   IsPositive,
   IsString,
   IsStrongPassword,
+  MaxLength,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -37,6 +38,7 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  @MaxLength(2,{ message: 'Deve ter no máximo 2 caracteres' })
   @ApiProperty()
   state: string;
 
