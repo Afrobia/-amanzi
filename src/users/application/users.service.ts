@@ -96,9 +96,10 @@ export class UsersService implements UserServiceInterface {
     return user;
   }
 
-  async deleteUser(email: string, password: string) {
+  async deleteUser(email: string, password: string): Promise<string> {
     if (!(await this.checkPassword(password, email))) {
       throw new ForbiddenException('Senha incorreta');}
     await this.userRepository.deleteUser(email);
+    return 'Usuário deletado com sucesso!';
   }
 }
