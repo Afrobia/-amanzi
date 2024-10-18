@@ -14,12 +14,6 @@ export class WaterCalculatorController {
     private readonly usersService: UsersService
   ) {};
 
-  @Get(':weight')
-  @ApiOperation({summary: "Requisição quanta agua tomar de um usuário, sem parte climatica,"})
-  async getIntake(@Param('weight') weight: number){
-    const message = `Você deve ingerir ${this.waterCalculatorService.calculateWaterIntake(weight)} litros de água por dia.`
-    return message
-  }
 
   @Post('intakeAnon')
   @ApiOperation({summary: "Requisição quanta agua tomar anonima"})
@@ -31,7 +25,7 @@ export class WaterCalculatorController {
     )
   }
 
-  @Get(':email')
+  @Post(':email')
   @ApiOperation({summary: "Requisição quanta agua tomar email um novo usuário"})
   async getIntakeEmail(@Param('email') email: string): Promise<Object> {
     const user = await this.usersService.findUserByEmail(email)
