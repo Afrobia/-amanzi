@@ -58,11 +58,21 @@ get http://localhost:3010/water-calculator/hgd@gmail.com
 content-type: application/json
 
 ### Requisição quanta agua tomar anonima
-get http://localhost:3010/water-calculator/intakeAnon
+post http://localhost:3010/water-calculator/intakeAnon
 content-type: application/json
 
 {
   "weight": 50,
   "city": "Campina Grande",
   "state": "PB"
+}
+
+### Requisição quanta agua tomar anonima 2
+post http://localhost:3010/water-calculator/intakeAnon
+content-type: application/json
+
+{
+  "weight": 80,
+  "city": "Goiânia",
+  "state": "GO"
 }
