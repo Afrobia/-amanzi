@@ -34,7 +34,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsPositive()
   @ApiProperty()
-  yearOfBirth: number;
+  weight: number;
 
   @IsString()
   @IsNotEmpty()
