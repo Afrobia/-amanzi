@@ -35,18 +35,11 @@ export class UsersService implements UserServiceInterface {
   }
 
   async create(createUser: CreateUserDto): Promise<User> {
-    if (await this.checkPassword(
-      createUser.password,
-      createUser.email
-    )){
       const newUser = new User();
       newUser.setName(createUser.name);
       newUser.setEmail(createUser.email);
       newUser.setPassword(createUser.password);
       return this.userRepository.registerUser(newUser);
-    } else {
-      throw new ForbiddenException('Cadastro inválido, senha incorreta');
-    }
   };
 
   private validateAge(user: CreateUserDto) {
