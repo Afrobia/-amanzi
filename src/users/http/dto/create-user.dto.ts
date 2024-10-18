@@ -30,6 +30,12 @@ export class CreateUserDto {
   @ApiProperty()
   yearOfBirth: number;
 
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  @ApiProperty()
+  yearOfBirth: number;
+
   @IsString()
   @IsNotEmpty()
   @ApiProperty()

@@ -35,10 +35,14 @@ export class UsersService implements UserServiceInterface {
   }
 
   async create(createUser: CreateUserDto): Promise<User> {
-      const newUser = new User();
-      newUser.setName(createUser.name);
-      newUser.setEmail(createUser.email);
-      newUser.setPassword(createUser.password);
+      const newUser = new User(
+        createUser.name,
+        createUser.email,
+        createUser.password,
+        createUser.weight,
+        createUser.city,
+        createUser.state
+      );
       return this.userRepository.registerUser(newUser);
   };
 
