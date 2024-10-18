@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from '../application/users.service';
 import { User } from '../domain/model/user';
 import { USER_REPO_TOKEN, UserRepositoryInterface } from '../application/ports/user-repository';
-import { CreateUserDto } from '../http/dto/create-user.dto';
 import { NotFoundException } from '@nestjs/common';
 
 describe('UsersService', () => {
@@ -51,7 +50,6 @@ describe('UsersService', () => {
       userTest.email,
       userTest.password,
       userTest.weight,
-      userTest.yearOfBirth,
       userTest.city,
       userTest.state
     ));
@@ -66,7 +64,6 @@ describe('UsersService', () => {
       userTest.email,
       userTest.password,
       userTest.weight,
-      userTest.yearOfBirth,
       userTest.city,
       userTest.state
     );
@@ -82,7 +79,6 @@ describe('UsersService', () => {
       userTest.email,
       userTest.password,
       userTest.weight,
-      userTest.yearOfBirth,
       userTest.city,
       userTest.state
     );
@@ -104,7 +100,6 @@ describe('UsersService', () => {
       userTest.email,
       userTest.password,
       userTest.weight,
-      userTest.yearOfBirth,
       userTest.city,
       userTest.state
     ),
@@ -113,7 +108,6 @@ describe('UsersService', () => {
       "avapcorrea@gmail.com",
       "senha123*",
       80,
-      2000,
       'Goiânia',
       'GO'
     )
@@ -130,7 +124,6 @@ describe('UsersService', () => {
       userTest.email,
       userTest.password,
       userTest.weight,
-      userTest.yearOfBirth,
       userTest.city,
       userTest.state
     );
@@ -147,7 +140,6 @@ describe('UsersService', () => {
       userTest.email,
       userTest.password,
       userTest.weight,
-      userTest.yearOfBirth,
       userTest.city,
       userTest.state
     );
@@ -162,7 +154,6 @@ describe('UsersService', () => {
       userTest.email,
       userTest.password,
       userTest.weight,
-      userTest.yearOfBirth,
       userTest.city,
       userTest.state
     );
@@ -180,7 +171,6 @@ describe('UsersService', () => {
       userTest.email,
       userTest.password,
       userTest.weight,
-      userTest.yearOfBirth,
       userTest.city,
       userTest.state
     );
