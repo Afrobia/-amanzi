@@ -13,6 +13,8 @@ export class User {
   @Expose()
   weight: number;
   @Expose()
+  yearOfBirth: number;
+  @Expose()
   private waterIntake:number;
   @Expose()
   city: string;
@@ -24,6 +26,7 @@ export class User {
     email:string,
     password:string,
     weight:number,
+    yearOfBirth:number,
     city:string,
     state:string
   ){
@@ -32,6 +35,7 @@ export class User {
     this.email = email
     this.password = password
     this.weight = weight
+    this.yearOfBirth
     this.waterIntake = 0
     this.city = city
     this.state = state
@@ -75,6 +79,14 @@ export class User {
 
   setWeight(weight:number){
     return this.weight=weight;
+  }
+
+  getYearOfBirth(){
+    return this.yearOfBirth;
+  }
+
+  setYearOfBirth(yearOfBirth:number){
+    return this.yearOfBirth=yearOfBirth;
   }
 
   getWaterIntake(){

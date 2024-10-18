@@ -40,6 +40,7 @@ export class UsersService implements UserServiceInterface {
         createUser.email,
         createUser.password,
         createUser.weight,
+        createUser.yearOfBirth,
         createUser.city,
         createUser.state
       );
