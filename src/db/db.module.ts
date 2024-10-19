@@ -23,9 +23,10 @@ import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
             migrations: [__dirname + '/migrations/*.ts'],
             synchronize: IS_PRODUCTION ? false : true,
             logger: IS_PRODUCTION ? 'error' : 'debug',
-          } 
+          }; 
           return config as TypeOrmModuleAsyncOptions;
-        },
+        
+      }
       }),
   ]
 })
