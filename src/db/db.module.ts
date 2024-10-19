@@ -13,7 +13,7 @@ import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
   
           const config = {
             type: 'postgres',
-            port: 5433,
+            port: 543,
             host: configService.getOrThrow<string>('DB_HOST'),
             username: configService.getOrThrow<string>('DB_USER'),
             password: configService.getOrThrow<string>('DB_PASSWORD'),
