@@ -2,6 +2,7 @@
   "name": "amanzi",
   "version": "0.0.1",
   "description": "",
+  "main": "src/main.ts",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
