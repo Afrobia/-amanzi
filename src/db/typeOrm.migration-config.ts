@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   migrations: [__dirname + '/migrations/*.ts'],
   migrationsRun: true,
-
+});
 AppDataSource.initialize()
 .then(() => {
   console.log("Data Source has been initialized!")
