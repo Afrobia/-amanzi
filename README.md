@@ -25,7 +25,7 @@
 ## Descrição
 
 ### Sistema
-Este projeto consiste em uma API para calcular a higestão hídrica das pessoas, com influência das condições climáticas, com clientes, suas contas, além de toda a gerenciamento geoclimático.
+Este projeto foi construido durante a imersão do {reprograma} com foco todo no back-end, que consiste na construção de uma API para calcular a ingestão hídrica, com influência das condições climáticas, consumindo API do OpenWeather e comunicação Banco de Dados(PostgreSQL), seguindo a arquitetura hexagonal, utilizando JavaScript/TypeScript, o framework Nest.js e as ferramentas TypeORM, Jest / Supertest e Swagger
 
 ### Usuário:
 
